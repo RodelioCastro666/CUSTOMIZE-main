@@ -29,18 +29,36 @@ public class Profession : MonoBehaviour
     [SerializeField]
     private ItemInfo craftItemInfo;
 
+    private List<int> amounts = new List<int>();
+
+
+
     private int maxAmount;
 
     private int amount;
 
+    private int MyAmount
+    {
+        set
+        {
+            countTxt.text = value.ToString();
+            amount = value;
+        }
+        get
+        {
+            return amount;
+        }
+    }
+
     private void Start()
     {
         InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateMaterialCount);
+        ShowDescription(selectedRecipe);
     }
 
     public void ShowDescription(Recipe recipe)
     {
-        if(selectedRecipe != null)
+        if (selectedRecipe != null)
         {
             selectedRecipe.DeSelect();
         }
@@ -49,7 +67,7 @@ public class Profession : MonoBehaviour
 
         this.selectedRecipe.Select();
 
-        foreach(GameObject gameObject in materials)
+        foreach (GameObject gameObject in materials)
         {
             Destroy(gameObject);
         }
@@ -74,25 +92,107 @@ public class Profession : MonoBehaviour
 
     private void UpdateMaterialCount(Item item)
     {
-        foreach(GameObject material in materials)
+        amounts.Sort();
+
+        foreach (GameObject material in materials)
         {
             ItemInfo tmp = material.GetComponent<ItemInfo>();
             tmp.UpdateStackCount();
         }
+
+        if (CanCraft())
+        {
+            maxAmount = amounts[0];
+
+            if (countTxt.text == "0")
+            {
+                MyAmount = 1;
+            }
+            else if (int.Parse(countTxt.text) > maxAmount)
+            {
+                MyAmount = maxAmount;
+            }
+        }
+        else
+        {
+            MyAmount = 0;
+            maxAmount = 0;
+        }
     }
 
-    public void Craft()
+    public void Craft(bool all)
     {
+        if (CanCraft() && !Player.MyInstance.IsAttacking && !Player.MyInstance.IsAttackingRasen && !Player.MyInstance.IsAttackingSword)
+        {
+            if (all)
+            {
+                amounts.Sort();
+                countTxt.text = maxAmount.ToString();
+                StartCoroutine(CraftRoutine(amounts[0]));
+            }
+            else
+            {
+                StartCoroutine(CraftRoutine(MyAmount));
+            }
+
+        }
+
 
     }
 
-    private IEnumerator  CraftRoutine(int count)
+    public bool CanCraft()
     {
-        yield return Player.MyInstance.MyInitRoutine = StartCoroutine(Player.MyInstance.CraftRoutine(selectedRecipe));
+        bool canCraft = true;
+
+        amounts = new List<int>();
+
+        foreach (CraftingMaterial material in selectedRecipe.Materials)
+        {
+            int count = InventoryScript.MyInstance.GetItemCount(material.MyItem.MyTitle);
+
+            if (count >= material.MyCount)
+            {
+                amounts.Add(count / material.MyCount);
+                continue;
+            }
+            else
+            {
+                canCraft = false;
+                break;
+            }
+        }
+
+        return canCraft;
+    }
+
+    public void ChangeAmount(int i)
+    {
+        if ((amount + i) > 0 && amount + i <= maxAmount)
+        {
+            MyAmount += i;
+        }
+    }
+
+    private IEnumerator CraftRoutine(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            yield return Player.MyInstance.MyInitRoutine = StartCoroutine(Player.MyInstance.CraftRoutine(selectedRecipe));
+        }
+
     }
 
     public void AddItemsToInventory()
     {
-        InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem);
+        if (InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem))
+        {
+            foreach (CraftingMaterial material in selectedRecipe.Materials)
+            {
+                for (int i = 0; i < material.MyCount; i++)
+                {
+                    InventoryScript.MyInstance.RemoveItem(material.MyItem);
+                }
+            }
+        }
     }
 }

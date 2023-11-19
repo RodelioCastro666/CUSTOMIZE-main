@@ -44,6 +44,9 @@ public class Player : Character
     [SerializeField]
     private Animator ding;
 
+    [SerializeField]
+    private Profession profession;
+
     private int exitIndex = 2;
 
     private SpellBook spellBook;
@@ -280,7 +283,8 @@ public class Player : Character
         }
     }
 
-    
+   
+
 
     Vector3 ChooseSpellDirection()
     {
@@ -296,42 +300,33 @@ public class Player : Character
 
     public void CastRasen()
     {
+         MyInitRoutine = StartCoroutine(AttackRasen()); 
         
-
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
-        {
-            MyInitRoutine = StartCoroutine(AttackRasen()); 
-        }
     }
 
     public void CastSword()
     {
+ 
+        MyInitRoutine = StartCoroutine(AttackSword()); ;
         
-
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
-        {
-            MyInitRoutine = StartCoroutine(AttackSword()); ;
-        }
-
     }
     public void CastFire()
     {
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
-        {
             MyInitRoutine = StartCoroutine(Attack()); 
-        }
+        
 
     }
 
-    public IEnumerator CraftRoutine(Recipe recipe)
+    public IEnumerator CraftRoutine(ICastable castable)
     {
-        yield return attackRoutine = StartCoroutine(ActionRoutine());
+        yield return attackRoutine = StartCoroutine(ActionRoutine(castable));
+        profession.AddItemsToInventory();
     }
 
-    private IEnumerator ActionRoutine()
+    private IEnumerator ActionRoutine(ICastable castable)
     {
-        Spell newSpell = spellBook.CastSpell(2);
+        SpellBook.MyInstance.Cast(castable);
 
         IsAttackingRasen = true;
         IsAttacking = true;
@@ -341,7 +336,7 @@ public class Player : Character
         MyAnimator.SetBool("attack", true);
         MyAnimator.SetBool("attackSword", true);
 
-        yield return new WaitForSeconds(newSpell.MyCastTime);
+        yield return new WaitForSeconds(castable.MyCastTime);
 
         StopAttackRasen();
         StopAttack();
@@ -358,7 +353,7 @@ public class Player : Character
         }
     }
 
-    private IEnumerator GatherRoutine( List<Drop> items)
+    private IEnumerator GatherRoutine(List<Drop> items)
     {
         Spell newSpell = spellBook.CastSpell(3);
 

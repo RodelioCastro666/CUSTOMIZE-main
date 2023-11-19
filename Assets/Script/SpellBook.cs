@@ -63,7 +63,7 @@ public class SpellBook : MonoBehaviour
 
         castingBar.fillAmount = 0;
 
-        spellName.text = spells[index].MyName;
+        spellName.text = spells[index].MyTitle;
 
         icon.sprite = spells[index].MyIcon;
 
@@ -186,7 +186,7 @@ public class SpellBook : MonoBehaviour
 
     public Spell GetSpell(string spellName)
     {
-        Spell spell = Array.Find(spells, x => x.MyName == spellName);
+        Spell spell = Array.Find(spells, x => x.MyTitle == spellName);
 
         return spell;
     }

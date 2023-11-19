@@ -1559,7 +1559,7 @@ RectTransform:
   m_Children:
   - {fileID: 522706566}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5253,7 +5253,6 @@ RectTransform:
   - {fileID: 1565484953}
   - {fileID: 243205484}
   - {fileID: 953992511}
-  - {fileID: 302706004}
   - {fileID: 1732366207}
   - {fileID: 602481182}
   - {fileID: 2133686183}
@@ -5266,6 +5265,7 @@ RectTransform:
   - {fileID: 352153726}
   - {fileID: 784242210}
   - {fileID: 1051624074}
+  - {fileID: 302706004}
   - {fileID: 6116319}
   - {fileID: 1706951097}
   m_Father: {fileID: 0}
@@ -5594,7 +5594,7 @@ RectTransform:
   m_Children:
   - {fileID: 1846792761}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 4
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6288,7 +6288,7 @@ RectTransform:
   - {fileID: 190250679}
   - {fileID: 1691429959}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6530,7 +6530,7 @@ RectTransform:
   - {fileID: 1061464611}
   - {fileID: 549874068}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6781,7 +6781,7 @@ RectTransform:
   - {fileID: 694243753}
   - {fileID: 1092866457}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7228,12 +7228,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1051624078}
     - target: {fileID: 780807756, guid: 2cb4d67cce0774a4690a1fec0c9c8e93, type: 3}
-      propertyPath: description
-      value: Craft
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125232292, guid: 2cb4d67cce0774a4690a1fec0c9c8e93, type: 3}
-      propertyPath: m_Color.a
-      value: 0
+      propertyPath: barColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4309708719508156393, guid: 2cb4d67cce0774a4690a1fec0c9c8e93, type: 3}
       propertyPath: m_Name
@@ -7323,8 +7319,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2828128539533140257, guid: 2cb4d67cce0774a4690a1fec0c9c8e93, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cb4d67cce0774a4690a1fec0c9c8e93, type: 3}
 --- !u!1 &456617286
 GameObject:
@@ -7545,10 +7540,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: QuestLog, Assembly-CSharp
-        m_MethodName: AbandonQuest
-        m_Mode: 1
+      - m_Target: {fileID: 1051624078}
+        m_TargetAssemblyTypeName: Profession, Assembly-CSharp
+        m_MethodName: Craft
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10470,7 +10465,7 @@ RectTransform:
   - {fileID: 1150342930}
   - {fileID: 449692981}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -11767,7 +11762,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 2f5b371d083680c41aa02310851824f7, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 24e0eacb551f5394eb721a806b4d4533, type: 3}
+    m_Data: {fileID: 21300000, guid: 11f1046a472b48e45b555f6399c52f7c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 537a3caeb789c504fac06d570144ce14, type: 3}
   - m_RefCount: 1
@@ -13220,7 +13215,7 @@ RectTransform:
   - {fileID: 864166605}
   - {fileID: 1168181156}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15294,8 +15289,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 343563364}
   m_HandleRect: {fileID: 343563363}
   m_Direction: 2
-  m_Value: 0.99999577
-  m_Size: 0.49015096
+  m_Value: 0.9999959
+  m_Size: 0.49015102
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16674,7 +16669,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1003350139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1051624078}
+        m_TargetAssemblyTypeName: Profession, Assembly-CSharp
+        m_MethodName: Craft
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1003350139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17756,7 +17763,7 @@ RectTransform:
   - {fileID: 487205110}
   - {fileID: 1003350137}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17771,7 +17778,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051624073}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -23296,12 +23303,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4624784640994010563, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
       propertyPath: items.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4624784640994010563, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
       propertyPath: items.Array.data[11]
       value: 
       objectReference: {fileID: 11400000, guid: 9485a22088e442646ae82db42b2215e9, type: 2}
+    - target: {fileID: 4624784640994010563, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
+      propertyPath: items.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: 25da01b8632d7374a8ff0633f842a271, type: 2}
     - target: {fileID: 4624784640994010563, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
       propertyPath: bagButtons.Array.data[0]
       value: 
@@ -23320,7 +23331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7357899022302071789, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7357899022302071789, guid: fb8595d13d3479541b26ca92448779a1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -27940,7 +27951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7492603310726818211, guid: 9df87d6de0be44a40a2336b9cdee5f13, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7492603310726818211, guid: 9df87d6de0be44a40a2336b9cdee5f13, type: 3}
       propertyPath: m_AnchorMax.x
@@ -28056,7 +28067,7 @@ RectTransform:
   - {fileID: 230668265}
   - {fileID: 845041931}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -31380,7 +31391,7 @@ RectTransform:
   - {fileID: 317889016}
   - {fileID: 493358437}
   m_Father: {fileID: 279426337}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -31842,6 +31853,7 @@ MonoBehaviour:
   - {fileID: 352153730}
   - {fileID: 246234492}
   - {fileID: 968205283}
+  - {fileID: 1051624075}
   InventoryScript: {fileID: 566743004}
 --- !u!4 &1748174142
 Transform:
@@ -31884,17 +31896,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749196026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 487205110}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92.85143, y: -1}
+  m_AnchoredPosition: {x: -91.8, y: -1}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1749196028
@@ -31940,7 +31952,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1749196029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1051624078}
+        m_TargetAssemblyTypeName: Profession, Assembly-CSharp
+        m_MethodName: ChangeAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1749196029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61577,17 +61601,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835143144}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 487205110}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -94.7, y: -1}
+  m_AnchoredPosition: {x: 97.7, y: -1}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835143146
@@ -61633,7 +61657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1835143147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1051624078}
+        m_TargetAssemblyTypeName: Profession, Assembly-CSharp
+        m_MethodName: ChangeAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1835143147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66137,28 +66173,28 @@ MonoBehaviour:
   icon: {fileID: 775591340}
   canvasGroup: {fileID: 1846792764}
   spells:
-  - name: FireSpell
+  - title: 
     damage: 10
     icon: {fileID: -2117707538, guid: 49060a693cb8dae4fb3b350344846c7b, type: 3}
     speed: 3
     castTime: 1
     spellPrefab: {fileID: 5344186972925234158, guid: c554661e869583342a9b20acf5fbe0a3, type: 3}
     barColor: {r: 0.745283, g: 0.1434318, b: 0.72068554, a: 1}
-  - name: Sword
+  - title: 
     damage: 10
     icon: {fileID: -2117707538, guid: 49060a693cb8dae4fb3b350344846c7b, type: 3}
     speed: 0.5
     castTime: 0.3
     spellPrefab: {fileID: 8665706963756730969, guid: 2ec46bb5e26a7b041879d6092132f51a, type: 3}
     barColor: {r: 0.8679245, g: 0.12609467, b: 0.12609467, a: 1}
-  - name: Rasen
+  - title: 
     damage: 50
     icon: {fileID: -2117707538, guid: 49060a693cb8dae4fb3b350344846c7b, type: 3}
     speed: 10
     castTime: 1
     spellPrefab: {fileID: 6236203193217112672, guid: 1bf299a3143c37b42aeda5202f5e2661, type: 3}
     barColor: {r: 0.06536131, g: 0.39022604, b: 0.4811321, a: 1}
-  - name: Gather
+  - title: 
     damage: 0
     icon: {fileID: -2117707538, guid: 49060a693cb8dae4fb3b350344846c7b, type: 3}
     speed: 0
@@ -66198,7 +66234,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 279426337}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -66587,6 +66623,10 @@ PrefabInstance:
       propertyPath: joyStick
       value: 
       objectReference: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+    - target: {fileID: 3993221779643388982, guid: 82061226a6518d841bb72714d4b4cf62, type: 3}
+      propertyPath: profession
+      value: 
+      objectReference: {fileID: 1051624078}
     - target: {fileID: 3993221779643388982, guid: 82061226a6518d841bb72714d4b4cf62, type: 3}
       propertyPath: initiHealth
       value: 100

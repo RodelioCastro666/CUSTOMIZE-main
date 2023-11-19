@@ -233,6 +233,24 @@ public class InventoryScript : MonoBehaviour
         return items;
     }
 
+    public void RemoveItem(Item item)
+    {
+
+        foreach (Bag bag in MyBags)
+        {
+
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyTitle == item.MyTitle)
+                {
+                    slot.RemoveItem(item);
+                    break;
+
+                }
+            }
+        }
+    }
+
     public int GetItemCount(string type)
     {
         int itemCount = 0;

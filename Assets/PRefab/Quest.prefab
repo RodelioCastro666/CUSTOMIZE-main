@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.033411846, g: 0.8113208, b: 0, a: 0.4117647}
+  m_Color: {r: 0.033411846, g: 0.8113208, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 4309708719508156394}
   - component: {fileID: 4309708719508156388}
   - component: {fileID: 4309708719508156395}
-  - component: {fileID: 2828128539533140257}
   - component: {fileID: -4138640681447818848}
   - component: {fileID: 780807756}
   m_Layer: 5
@@ -215,18 +214,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2828128539533140257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4309708719508156393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9607d222dea30c3488524ed7e8f6548a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-4138640681447818848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,5 +287,7 @@ MonoBehaviour:
     count: 5
   output: {fileID: 11400000, guid: b036955f715ffdc4f8d47ac4ef35127c, type: 2}
   outputCount: 1
-  description: Craft gold Bar
+  description: Craft
   highlight: {fileID: 1125232292}
+  craftTIme: 2
+  barColor: {r: 0, g: 0, b: 0, a: 0}

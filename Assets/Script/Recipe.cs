@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Recipe : MonoBehaviour
+public class Recipe : MonoBehaviour,ICastable
 {
     [SerializeField]
     private CraftingMaterial[] materials;
@@ -28,6 +28,46 @@ public class Recipe : MonoBehaviour
     public string MyDescription { get => description; }
 
     public CraftingMaterial[] Materials { get => materials; }
+
+    [SerializeField]
+    private float craftTIme;
+
+    [SerializeField]
+    private Color barColor;
+
+    private Sprite icon;
+
+    public string MyTitle
+    {
+        get
+        {
+            return output.MyTitle;
+        }
+    }
+    public Sprite MyIcon
+    {
+        get
+        {
+            return output.MyIcon;
+        }
+    }
+    public float MyCastTime
+    {
+        get
+        {
+            return craftTIme;
+        }
+    }
+    public Color MyBarColor
+    {
+        get
+        {
+            return barColor;
+        }
+    }
+
+
+
 
 
     private void Start()

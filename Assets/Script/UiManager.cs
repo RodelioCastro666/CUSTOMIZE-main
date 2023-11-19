@@ -88,6 +88,10 @@ public class UiManager : MonoBehaviour
         {
             OpenClose(menus[3]);
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            OpenClose(menus[6]);
+        }
 
 
         //if (Input.GetKeyDown(KeyCode.P))
@@ -95,8 +99,8 @@ public class UiManager : MonoBehaviour
         //    OpenClose(menus[6]);
         //}
 
-       
-       
+
+
 
 
         //if (Input.GetKeyDown(KeyCode.Escape))

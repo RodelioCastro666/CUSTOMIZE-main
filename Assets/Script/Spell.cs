@@ -7,10 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class Spell : IUseable//, IMoveable
+public class Spell : IUseable , ICastable//, IMoveable ,
 {
     [SerializeField]
-    private string name;
+    private string title;
 
     [SerializeField]
     private int damage;
@@ -30,7 +30,7 @@ public class Spell : IUseable//, IMoveable
     [SerializeField]
     private Color barColor;
 
-    public string MyName { get => name; set => name = value; }
+    public string MyTitle { get => title; set => title = value; }
 
     public int MyDamage { get => damage; set => damage = value; }
 
@@ -45,6 +45,8 @@ public class Spell : IUseable//, IMoveable
     public GameObject MySpellPrefab { get => spellPrefab; set => spellPrefab = value; }
 
     public Color MyBarColor { get => barColor; set => barColor = value; }
+
+   
 
     public void Use()
     {
