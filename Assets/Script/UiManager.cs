@@ -76,10 +76,7 @@ public class UiManager : MonoBehaviour
         {
             OpenClose(menus[1]);
         }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            InventoryScript.MyInstance.OpenClose();
-        }
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             OpenClose(menus[2]);
@@ -91,6 +88,10 @@ public class UiManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             OpenClose(menus[6]);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            OpenClose(menus[7]);
         }
 
 
@@ -138,6 +139,11 @@ public class UiManager : MonoBehaviour
     public void CharOpen()
     {
         OpenClose(menus[2]);
+    }
+
+    public void OpenInventory()
+    {
+        OpenClose(menus[7]);
     }
 
     public void OpenSingle(CanvasGroup canvasGroup)

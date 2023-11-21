@@ -61,6 +61,9 @@ public class Player : Character
 
     private Vector3 min, max;
 
+    [SerializeField]
+    private Transform minimapIndicator;
+
     protected override void Start()
     {
 
@@ -119,13 +122,20 @@ public class Player : Character
             {
                 Debug.Log("right");
                 exitIndex = 1;
-
+                if (direction.y == 0)
+                {
+                    minimapIndicator.eulerAngles = new Vector3(0, 0, 270);
+                }
             }
 
             if (direction.x < 0)
             {
                 Debug.Log("left");
                 exitIndex = 3;
+                if(direction.y == 0)
+                {
+                    minimapIndicator.eulerAngles = new Vector3(0, 0, 90);
+                }
 
             }
         }
@@ -137,6 +147,7 @@ public class Player : Character
             {
                 Debug.Log("up");
                 exitIndex = 0;
+                minimapIndicator.eulerAngles = new Vector3(0, 0, 0);
 
             }
 
@@ -144,6 +155,8 @@ public class Player : Character
             {
                 Debug.Log("down");
                 exitIndex = 2;
+                minimapIndicator.eulerAngles = new Vector3(0, 0, 180);
+                
 
             }
         }

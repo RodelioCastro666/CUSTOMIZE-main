@@ -67,7 +67,7 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         Bag bag = (Bag)Instantiate(items[0]);
-        bag.Initialize(75);
+        bag.Initialize(44);
         bag.Use();
     }
 

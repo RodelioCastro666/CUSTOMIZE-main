@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 6
   spritePivot: {x: 0, y: 0}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -267,13 +267,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Overworld_6
+      name: House
       rect:
         serializedVersion: 2
         x: 96
-        y: 560
-        width: 16
-        height: 16
+        y: 496
+        width: 81
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1929,7 +1929,7 @@ TextureImporter:
       name: Overworld_85
       rect:
         serializedVersion: 2
-        x: 128
+        x: 127
         y: 528
         width: 16
         height: 16
@@ -22915,6 +22915,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      House: 852956246
       Overworld_0: -674837455
       Overworld_1: 217945280
       Overworld_10: -893800926
@@ -23555,7 +23556,6 @@ TextureImporter:
       Overworld_597: 1210781245
       Overworld_598: 586999339
       Overworld_599: -1822127499
-      Overworld_6: 852956246
       Overworld_60: 1134608513
       Overworld_600: -1324707180
       Overworld_601: -728977088
