@@ -5,7 +5,20 @@ using TMPro;
 
 public class VendorWindow : Window
 {
-   
+    private static VendorWindow instance;
+
+    public static VendorWindow MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<VendorWindow>();
+            }
+
+            return instance;
+        }
+    }
 
     [SerializeField]
     private VendorButton[] vendorButtons;

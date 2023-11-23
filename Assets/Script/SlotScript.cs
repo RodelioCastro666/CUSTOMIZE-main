@@ -149,17 +149,24 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         }
     }
 
-    public void OnDrag(PointerEventData eventData)
+     public void OnDrag(PointerEventData eventData)
     {
-        if (!IsEmpty)
+        if (InventoryScript.MyInstance.FromSlot == null && !IsEmpty)
         {
             UiManager.MyInstance.ShowToolTip(MyItem);
         }
 
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && HandScript.MyInstance.MyMoveable == null)
         {
-            if (InventoryScript.MyInstance.FromSlot == null)
+            if (InventoryScript.MyInstance.FromSlot == null && !IsEmpty)
             {
+                if(HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+                {
+                    HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
+                    InventoryScript.MyInstance.FromSlot = this;
+                    Debug.Log("Drag");
+                }
+
                 HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
                 InventoryScript.MyInstance.FromSlot = this;
                 Debug.Log("Drag");
@@ -169,6 +176,8 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
 
         }
+
+       
     }
 
     public void OnDrop(PointerEventData eventData)

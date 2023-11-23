@@ -8,4 +8,5 @@ public class Vendor : NPC,IInteractable
     private VendorItem[] items;
 
     public VendorItem[] MyItems { get => items; }
+
 }

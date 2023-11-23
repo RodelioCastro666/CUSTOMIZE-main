@@ -32,6 +32,15 @@ public class Player : Character
     [SerializeField]
     private TextMeshProUGUI lvlText;
 
+    private Stack<Vector3> path;
+
+    private Vector3 destination;
+
+    private Vector3 goal;
+
+    [SerializeField]
+    private Astar astar;
+
     private List<IInteractable> interactables = new List<IInteractable>();
 
     private float initiMana = 50;
@@ -78,6 +87,8 @@ public class Player : Character
     {
 
         GetInput();
+
+        ClickToMove();
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x),
             Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
@@ -204,6 +215,35 @@ public class Player : Character
         
     }
 
+    public void GetPath(Vector3 goal)
+    {
+        path = astar.Algorithm(transform.position,goal);
+        destination = path.Pop();
+        this.goal = goal;
+    }
+
+    public void ClickToMove()
+    {
+        if(path != null)
+        {
+            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, Speed * Time.deltaTime);
+
+            float distance = Vector2.Distance(destination, transform.parent.position);
+
+            if(distance <= 0f)
+            {
+                if(path.Count > 0)
+                {
+                    destination = path.Pop();
+                }
+                else
+                {
+                    path = null;
+                }
+            }
+        }
+    }
+
     public void SetLimits(Vector3 min,Vector3 max)
     {
         this.min = min;
@@ -235,7 +275,7 @@ public class Player : Character
             spell.SetUp(temp, ChooseSpellDirection());
             spell.Initialize(newSpell.MyDamage, transform);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
 
             StopAttack();
         }

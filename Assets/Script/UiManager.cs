@@ -130,7 +130,10 @@ public class UiManager : MonoBehaviour
     //    keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
     //    Time.timeScale = Time.timeScale > 0 ? 0 : 1;
     //}
-
+    public void OpenQuest()
+    {
+        OpenClose(menus[3]);
+    }
     public void OpenMainMenu()
     {
         OpenClose(menus[0]);
@@ -144,6 +147,10 @@ public class UiManager : MonoBehaviour
     public void OpenInventory()
     {
         OpenClose(menus[7]);
+    }
+    public void OpenCrafting()
+    {
+        OpenClose(menus[6]);
     }
 
     public void OpenSingle(CanvasGroup canvasGroup)

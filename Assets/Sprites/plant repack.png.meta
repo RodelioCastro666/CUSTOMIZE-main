@@ -170,7 +170,7 @@ TextureImporter:
         width: 96
         height: 156
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -178,6 +178,27 @@ TextureImporter:
       bones: []
       spriteID: 9e724af713a147d498399c86d9c613f2
       internalID: 2133307876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RuinTree
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 124
+        width: 83
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f800b0e6f8aca142b48e5715bf06abb
+      internalID: 1317986637
       vertices: []
       indices: 
       edges: []
@@ -198,6 +219,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      RuinTree: 1317986637
       plant repack_0: 392406787
       plant repack_1: 2133307876
   spritePackingTag: 

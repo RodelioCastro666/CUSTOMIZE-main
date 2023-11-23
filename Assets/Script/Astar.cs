@@ -5,82 +5,53 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {START,GOAL,WATER,GRASS,PATH}
-
 public class Astar : MonoBehaviour
 {
-    private TileType tileType;
 
     [SerializeField]
-    private Tilemap tileMap;
-
-    [SerializeField]
-    private Tile[] tiles;
-
-    [SerializeField]
-    private RuleTile water;
-
-    [SerializeField]
-    private Camera camera;
-
-    [SerializeField]
-    private LayerMask layerMask;
-
-    private HashSet<Node> openList;
-
-    private HashSet<Node> closedList;
-
-    private Stack<Vector3Int> path;
+    private Tilemap tilemap;
 
     private Vector3Int startPos, goalPos;
 
     private Node current;
 
-    private bool start, goal;
+    private HashSet<Node> openList;
 
-    private HashSet<Vector3Int> changedTiles = new HashSet<Vector3Int>();
+    private HashSet<Node> closedList;
 
-    private List<Vector3Int> waterTiles = new List<Vector3Int>();
+    private Stack<Vector3> path;
 
     private Dictionary<Vector3Int, Node> allNodes = new Dictionary<Vector3Int, Node>();
 
-    private void Update()
+    private static HashSet<Vector3Int> noDiagonalTiles = new HashSet<Vector3Int>();
+
+    public Tilemap MyTilemap { get => tilemap; }
+
+    public static HashSet<Vector3Int> NoDiagonalTiles { get => noDiagonalTiles; }
+
+    public Stack<Vector3> Algorithm(Vector3 start, Vector3 goal)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit2D hit = Physics2D.Raycast(camera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity,layerMask);
+        startPos = MyTilemap.WorldToCell(start);
+        goalPos = MyTilemap.WorldToCell(goal);
 
-            if(hit.collider != null)
-            {
-                Vector3 mouseWorldPos = camera.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int clickPos = tileMap.WorldToCell(mouseWorldPos);
-
-                ChangeTile(clickPos);
-            }
-        }
-
-        
-    }
-
-    public void Initialize()
-    {
         current = GetNode(startPos);
 
         openList = new HashSet<Node>();
 
         closedList = new HashSet<Node>();
 
-        openList.Add(current);
-    }
-
-    public void Algorithm(bool step)
-    {
-        if(current == null)
+        foreach (KeyValuePair<Vector3Int, Node> node in allNodes)
         {
-            Initialize();
+            node.Value.Parent = null;
         }
 
-        while(openList.Count > 0 && path == null)
+        allNodes.Clear();
+
+        openList.Add(current);
+
+        path = null;
+
+        while (openList.Count > 0 && path == null)
         {
             List<Node> neighbors = findNeighbors(current.Position);
 
@@ -90,24 +61,110 @@ public class Astar : MonoBehaviour
 
             path = GeneratePath(current);
 
-            if (step)
-            {
-                break;
-            }
+
         }
 
-        if(path != null)
+
+        if (path != null)
         {
-            foreach(Vector3Int position in path)
+            return path;
+        }
+
+        return null;
+
+    }
+
+    private List<Node> findNeighbors(Vector3Int parentposition)
+    {
+        List<Node> neighbors = new List<Node>();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
             {
-                if(position != goalPos)
+
+
+                if (y != 0 || x != 0)
                 {
-                    tileMap.SetTile(position, tiles[2]);
+                    Vector3Int neighborPosition = new Vector3Int(parentposition.x - x, parentposition.y - y, parentposition.z);
+
+                    if (neighborPosition != startPos && !GameManager.MyInstance.Blocked.Contains(neighborPosition))
+                    {
+                        Node neighbor = GetNode(neighborPosition);
+                        neighbors.Add(neighbor);
+                    }
+
                 }
             }
         }
 
-        AStarDebugger.MyInstance.CreateTiles(openList,closedList,allNodes,startPos, goalPos,path);
+        return neighbors;
+    }
+
+    private bool ConnectedDiagonally(Node currentNode, Node neighbor)
+    {
+        Vector3Int direct = currentNode.Position - neighbor.Position;
+
+        Vector3Int first = new Vector3Int(current.Position.x + (direct.x * -1), current.Position.y, current.Position.z);
+        Vector3Int second = new Vector3Int(current.Position.x, current.Position.y + (direct.y * -1), current.Position.z);
+
+        if (GameManager.MyInstance.Blocked.Contains(first) || GameManager.MyInstance.Blocked.Contains(second))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void ExamineNeighbors(List<Node> neighbors, Node current)
+    {
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            Node neighbor = neighbors[i];
+
+            if (!ConnectedDiagonally(current, neighbor))
+            {
+                continue;
+            }
+
+            int gScore = DetermineGScore(neighbors[i].Position, current.Position);
+
+            if (gScore == 14 && NoDiagonalTiles.Contains(neighbor.Position) && NoDiagonalTiles.Contains(current.Position))
+            {
+                continue;
+            }
+
+            if (openList.Contains(neighbor))
+            {
+                if (current.G + gScore < neighbor.G)
+                {
+                    CalcVAlues(current, neighbor, gScore);
+                }
+            }
+            else if (!closedList.Contains(neighbor))
+            {
+                CalcVAlues(current, neighbor, gScore);
+
+                openList.Add(neighbor);
+            }
+
+
+
+
+
+
+        }
+    }
+
+    private void CalcVAlues(Node parent, Node neighbor, int cost)
+    {
+        neighbor.Parent = parent;
+
+        neighbor.G = parent.G + cost;
+
+        neighbor.H = ((Math.Abs((neighbor.Position.x - goalPos.x)) + Math.Abs((neighbor.Position.y - goalPos.y))) * 10);
+
+        neighbor.F = neighbor.G + neighbor.H;
     }
 
     private int DetermineGScore(Vector3Int neighbor, Vector3Int current)
@@ -129,86 +186,13 @@ public class Astar : MonoBehaviour
         return gScore;
     }
 
-    private List<Node> findNeighbors(Vector3Int parentposition)
-    {
-        List<Node> neighbors = new List<Node>();
-
-        for (int x = -1; x <= 1; x++)
-        {
-            for (int y = -1; y <= 1; y++)
-            {
-                Vector3Int neighborPos = new Vector3Int(parentposition.x - x, parentposition.y - y, parentposition.z);
-
-                if (y != 0 || x != 0)
-                {
-
-
-                   if(neighborPos != startPos && !waterTiles.Contains(neighborPos) && tileMap.GetTile(neighborPos))
-                   {
-                        Node neighbor = GetNode(neighborPos);
-                        neighbors.Add(neighbor);
-                   }
-
-                }
-            }
-        }
-
-        return neighbors;
-    }
-
-    private void ExamineNeighbors(List<Node> neighbors, Node current)
-    {
-        for(int i = 0; i < neighbors.Count; i++)
-        {
-            Node neighbor = neighbors[i];
-
-            if (!ConnectedDiagonally(current, neighbor))
-            {
-                continue;
-            }
-
-            int gScore = DetermineGScore(neighbors[i].Position, current.Position);
-
-            if (openList.Contains(neighbor))
-            {
-                if (current.G + gScore < neighbor.G)
-                {
-                    CalcVAlues(current, neighbor, gScore);
-                }
-            }
-            else if (!closedList.Contains(neighbor))
-            {
-                CalcVAlues(current, neighbor, gScore);
-
-                openList.Add(neighbor);
-            }
-
-          
-
-           
-        }
-    }
-
-    private void CalcVAlues(Node parent, Node neighbor, int cost)
-    {
-        neighbor.Parent = parent;
-
-        
-
-        neighbor.G = parent.G + cost;
-
-        neighbor.H = ((Math.Abs((neighbor.Position.x - goalPos.x)) + Math.Abs((neighbor.Position.y - goalPos.y))) * 10);
-
-        neighbor.F = neighbor.G + neighbor.H;
-    }
-
     private void UpdateCurrentTile(ref Node current)
     {
         openList.Remove(current);
 
         closedList.Add(current);
 
-        if(openList.Count > 0)
+        if (openList.Count > 0)
         {
             current = openList.OrderBy(x => x.F).First();
         }
@@ -228,72 +212,61 @@ public class Astar : MonoBehaviour
         }
     }
 
-    public void ChangeTileType(TileButton button)
-    {
-        tileType = button.MyTileType;
-        
-    }
+    //public void ChangeTileType(TileButton button)
+    //{
+    //    tileType = button.MyTileType;
+    //}
 
-    private void ChangeTile(Vector3Int clickPos)
-    {
-        if (tileType == TileType.WATER)
-        {
-            tileMap.SetTile(clickPos, water);
-            waterTiles.Add(clickPos);
-        }
-        else
-        {
-            if(tileType == TileType.START)
-            {
-                if (start)
-                {
-                    tileMap.SetTile(startPos, tiles[3]);
-                }
-                start = true;
-                startPos = clickPos;
-            }
-            else if(tileType == TileType.GOAL)
-            {
-                if (goal)
-                {
-                    tileMap.SetTile(goalPos, tiles[3]);
-                }
-                goal = true;
-                goalPos = clickPos;
-            }
+    //private void ChangeTile(Vector3Int clickPos)
+    //{
 
-            tileMap.SetTile(clickPos, tiles[(int)tileType]);
-        }
-        changedTiles.Add(clickPos);
-        
-    }
-
-    private bool ConnectedDiagonally(Node currentNode, Node neighbor)
-    {
-        Vector3Int direct = currentNode.Position - neighbor.Position;
-
-        Vector3Int first = new Vector3Int(current.Position.x + (direct.x * -1), current.Position.y, current.Position.z);
-        Vector3Int second = new Vector3Int(current.Position.x, current.Position.y + (direct.y * -1), current.Position.z);
-
-        if (waterTiles.Contains(first) || waterTiles.Contains(second))
-        {
-            return false;
-        }
-
-        return true;
-    }
+    //    if(tileType == GameManager.MyInstance.Blocked.Contains(clickPos))
+    //    {
+    //        tilemap.SetTile(clickPos, water);
+    //        waterTiles.Add(clickPos);
+    //    }
+    //    else
+    //    {
+    //        if (tileType == TileType.Start)
+    //        {
+    //            if (start)
+    //            {
+    //                tilemap.SetTile(startPos, tiles[3]);
+    //            }
+    //            start = true;
+    //            startPos = clickPos;
+    //        }
+    //        else if (tileType == TileType.Goal)
+    //        {
+    //            if (goal)
+    //            {
+    //                tilemap.SetTile(goalPos, tiles[3]);
+    //            }
+    //            goal = true;
+    //            goalPos = clickPos;
 
 
-    private Stack<Vector3Int> GeneratePath(Node current)
+
+    //        }
+
+    //        tilemap.SetTile(clickPos, tiles[(int)tileType]);
+    //    }
+
+    //    changeTiles.Add(clickPos);
+
+
+    //}
+
+    private Stack<Vector3> GeneratePath(Node current)
     {
         if (current.Position == goalPos)
         {
-            Stack<Vector3Int> finalpath = new Stack<Vector3Int>();
+            Stack<Vector3> finalpath = new Stack<Vector3>();
 
             while (current != null)
             {
-                //finalpath.Push(MyTilemap.CellToWorld(current.Position));
-                finalpath.Push(current.Position);
+                finalpath.Push(MyTilemap.CellToWorld(current.Position));
+
                 current = current.Parent;
             }
 
@@ -301,32 +274,5 @@ public class Astar : MonoBehaviour
         }
 
         return null;
-    }
-
-    public void Reset()
-    {
-        AStarDebugger.MyInstance.Reset(allNodes);
-
-      
-
-
-        foreach (Vector3Int position in changedTiles)
-        {
-            tileMap.SetTile(position, tiles[3]);
-        }
-        foreach (Vector3Int position in path)
-        {
-            tileMap.SetTile(position, tiles[3]);
-        }
-
-        tileMap.SetTile(startPos, tiles[3]);
-        tileMap.SetTile(goalPos, tiles[3]);
-        waterTiles.Clear();
-        allNodes.Clear();
-        waterTiles.Clear();
-        path = null;
-        current = null;
-        start = false;
-        goal = false;
     }
 }
